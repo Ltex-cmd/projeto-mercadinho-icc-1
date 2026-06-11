@@ -12,7 +12,7 @@ int main(void) {
     /*Inicializando o vetor buffer de comando*/
     comando[0] = '0'; comando[1] = '0';
 
-    /*Laço que mantém o programa*/
+    /*Laço que mantém o processo rodando*/
     while(strcmp(comando, "FE") != 0)
         scanf("%s", comando);
 
