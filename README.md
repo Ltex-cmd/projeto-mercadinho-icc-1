@@ -84,4 +84,3 @@ Saldo:_<saldo do caixa>
 - `main.c` — laço principal que lê e distribui os comandos.
 - `funcoes.h` — onde estão as funcionalidades.
 - Arquivo de dados — criado pelo `FE` e lido quando o programa abre no dia seguinte.
-# projeto-mercadinho-icc-1
