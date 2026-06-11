@@ -83,5 +83,6 @@ Saldo:_<saldo do caixa>
 ## Arquivos
 
 - `main.c` — laço principal que lê e distribui os comandos.
-- `funcoes.h` — onde estão as funcionalidades.
+- `funcoes.h` — onde estão as definições de estrutura e constantes do programa.
+- `funcoes.c` - onde estão as funcionalidades,
 - Arquivo de dados — criado pelo `FE` e lido quando o programa abre no dia seguinte.
