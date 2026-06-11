@@ -12,9 +12,9 @@ tudo no fim do dia pra carregar de novo no dia seguinte.
 
 ## Integrantes
 
+- Lais Pinheiro Johonson — NUSP: 17903436
 - Lucas Almeida Teixeira — NUSP: 16884285
-- Livia Nobre Baldochi — NUSP: 14589747
-— Lais Pinheiro Johonson - NUSP: 17903436
+- Livia Nobre Baldochi — NUSP: 1458974
 
 ## Como compilar e rodar
 
