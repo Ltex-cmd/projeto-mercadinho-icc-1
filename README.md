@@ -14,6 +14,7 @@ tudo no fim do dia pra carregar de novo no dia seguinte.
 
 - Lucas Almeida Teixeira — NUSP: 16884285
 - Livia Nobre Baldochi — NUSP: 14589747
+— Lais Pinheiro Johonson - NUSP: 17903436
 
 ## Como compilar e rodar
 
