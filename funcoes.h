@@ -11,9 +11,13 @@ typedef struct {
 } Produto;
 
 typedef struct {
+    /*vetor de produtos*/
     Produto *produtos;
+    /*total de produtos*/
     int total;
+    /*capacidade de produtos no estoque*/
     int capacidade;
+    /*saldo em caixa*/
     float caixa;
 } Mercadinho;
 
@@ -23,5 +27,7 @@ void modifica_preco(Mercadinho *m, int codigo, float preco);
 void realiza_venda(Mercadinho *m);
 void consulta_estoque(Mercadinho *m);
 void consulta_saldo(Mercadinho *m);
+void inicializar_mercadinho(Mercadinho *m);
+void finalizar_dia(Mercadinho *m);
 
 #endif
