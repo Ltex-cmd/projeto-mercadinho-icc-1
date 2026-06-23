@@ -6,7 +6,7 @@
 void inicializar_mercadinho(Mercadinho *m) {
     FILE *fp;
     
-    if ((fp = fopen("dia_anterior.txt", "r")) == NULL) {
+    if ((fp = fopen("estoque.txt", "r")) == NULL) {
         int capacidade;
         scanf("%d", &capacidade);
 
@@ -65,5 +65,22 @@ void consulta_saldo(Mercadinho *m) {
 
 }
 void finalizar_dia(Mercadinho *m) {
+    FILE *fp = fopen("estoque.txt", "w");
 
-}
+    /*iremos seguir a seguinte estrutura de arquivos:
+    caixa
+    capacidade
+    total de produtos
+    cada um dos produtos depois*/
+    fprintf(fp, "%.2f\n", m->caixa);
+    fprintf(fp, "%d\n", m->capacidade);
+    fprintf(fp, "%d\n", m->total);
+    for (int i = 0; i < m->total; i++)
+        fprintf(fp, "%s %.2f %d\n", m->produtos[i].nome, m->produtos[i].preco, m->produtos[i].quantidade);
+    
+        fclose(fp);
+
+        free(m->produtos);
+        m->produtos = NULL;
+
+    }
