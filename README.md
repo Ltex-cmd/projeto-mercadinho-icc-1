@@ -76,7 +76,6 @@ Saldo:_<saldo do caixa>
 
 - Os códigos são inteiros que começam em 0 e vão sendo dados em ordem conforme os produtos entram.
 - O caixa começa com 100 reais e pode ficar negativo.
-- `IP` não gera custo; `AE` mexe no caixa.
 - Ao abrir, o sistema carrega o arquivo do dia anterior. Se ele não existir, o programa
   pergunta o tamanho do estoque e aloca a memória na hora.
 
@@ -84,5 +83,5 @@ Saldo:_<saldo do caixa>
 
 - `main.c` — laço principal que lê e distribui os comandos.
 - `funcoes.h` — onde estão as definições de estrutura e constantes do programa.
-- `funcoes.c` - onde estão as funcionalidades,
+- `funcoes.c` — onde estão as funcionalidades.
 - Arquivo de dados — criado pelo `FE` e lido quando o programa abre no dia seguinte.
