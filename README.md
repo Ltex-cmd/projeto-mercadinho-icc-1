@@ -21,7 +21,13 @@ tudo no fim do dia pra carregar de novo no dia seguinte.
 Compila com o GCC no padrão C99:
 
 ```bash
-gcc -std=c99 -o mercadinho main.c
+gcc -std=c99 -Wall -Wextra main.c funcoes.c -o mercadinho
+```
+
+Também é possível usar o makefile:
+
+```bash
+make
 ```
 
 O programa lê comandos pela entrada padrão até receber o `FE`. Pra rodar direto:
@@ -56,18 +62,15 @@ Os comandos `VE`, `CE` e `CS` imprimem coisas. Os valores saem com duas casas de
 cada saída termina numa linha com cinquenta hífens.
 
 ```
-Venda
 <nome>_<preço>
 ...
 Total:_<preço total>
 --------------------------------------------------
 
-Consulta estoque
 <código>_<nome>_<quantidade>
 ...
 --------------------------------------------------
 
-Consulta saldo
 Saldo:_<saldo do caixa>
 --------------------------------------------------
 ```

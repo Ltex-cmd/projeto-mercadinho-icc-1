@@ -29,6 +29,5 @@ void consulta_estoque(Mercadinho *m);
 void consulta_saldo(Mercadinho *m);
 void inicializar_mercadinho(Mercadinho *m);
 void finalizar_dia(Mercadinho *m);
-void printa_separador();
 
 #endif
