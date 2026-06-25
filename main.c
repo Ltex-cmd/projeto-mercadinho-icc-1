@@ -2,6 +2,12 @@
 #include <string.h>
 #include "funcoes.h"
 
+/*
+ * funcao principal do programa
+ * nao recebe parametros porque os comandos vem todos pela entrada padrao
+ * o int no retorno e o jeito normal da main avisar que terminou sem erro
+ * aqui o mercadinho e iniciado e cada comando chama sua funcao
+ */
 int main(void) {
     Mercadinho mercadinho;
     char comando[3];

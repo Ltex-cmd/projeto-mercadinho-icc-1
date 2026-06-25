@@ -1,3 +1,13 @@
+/*
+ * esse header junta as constantes, structs e prototipos usados nos dois arquivos
+ * assim a gente nao precisa repetir as mesmas definicoes em main.c e funcoes.c
+ */
+
+/*
+ * essas duas linhas evitam que esse arquivo seja lido duas vezes na mesma compilacao
+ * se FUNCOES_H ainda nao existe, o codigo abaixo entra normalmente
+ * depois o #define marca que ele ja foi incluido
+ */
 #ifndef FUNCOES_H
 #define FUNCOES_H
 
@@ -30,4 +40,4 @@ void consulta_saldo(Mercadinho *m);
 void inicializar_mercadinho(Mercadinho *m);
 void finalizar_dia(Mercadinho *m);
 
-#endif
+#endif /* fecha o ifndef la de cima */

@@ -3,6 +3,11 @@
 #include <string.h>
 #include "funcoes.h"
 
+/*
+ * imprime a linha de 50 hifens que aparece depois das consultas e vendas
+ * nao precisa de parametro porque esse tamanho nunca muda
+ * e void pois so imprime na tela
+ */
 static void imprime_separador(void) {
     int i;
 
@@ -13,6 +18,11 @@ static void imprime_separador(void) {
     printf("\n");
 }
 
+/*
+ * separa memoria para o vetor usado no estoque
+ * recebe o tamanho em bytes porque e assim que o malloc trabalha
+ * retorna void * porque esse ponteiro pode virar um vetor de produtos depois
+ */
 static void *aloca_memoria(size_t tamanho) {
     void *ponteiro = malloc(tamanho);
 
@@ -23,6 +33,11 @@ static void *aloca_memoria(size_t tamanho) {
     return ponteiro;
 }
 
+/*
+ * muda o tamanho de uma memoria que ja tinha sido alocada
+ * recebe o ponteiro antigo e o novo tamanho porque sao os dados pedidos pelo realloc
+ * tambem retorna void * para servir para o vetor de produtos
+ */
 static void *realoca_memoria(void *ponteiro, size_t tamanho) {
     void *novo_ponteiro = realloc(ponteiro, tamanho);
 
@@ -34,10 +49,16 @@ static void *realoca_memoria(void *ponteiro, size_t tamanho) {
     return novo_ponteiro;
 }
 
+/*
+ * prepara a struct do mercadinho no comeco do programa
+ * recebe Mercadinho * para mexer no mesmo mercadinho criado na main
+ * nao retorna nada porque os dados ficam salvos direto nessa struct
+ * se ja existir estoque.txt, le o dia anterior, senao le a capacidade inicial
+ */
 void inicializar_mercadinho(Mercadinho *m) {
     FILE *fp = fopen("estoque.txt", "r");
 
-    /* Inicializa do zero quando nao existe arquivo salvo do dia anterior. */
+    /* se nao tiver arquivo salvo, esse e o primeiro dia */
     if (fp == NULL) {
         int capacidade;
 
@@ -46,7 +67,7 @@ void inicializar_mercadinho(Mercadinho *m) {
             capacidade = 1;
         }
 
-        /* Primeiro dia: o tamanho inicial do estoque vem da entrada. */
+        /* no primeiro dia o tamanho do estoque vem da entrada */
         m->produtos = aloca_memoria(capacidade * sizeof(Produto));
         m->capacidade = capacidade;
         m->total = 0;
@@ -54,7 +75,7 @@ void inicializar_mercadinho(Mercadinho *m) {
     } else {
         int i;
 
-        /* Dias seguintes: reconstroi o estado salvo no fechamento anterior. */
+        /* nos outros dias o programa recupera o que foi salvo antes */
         fscanf(fp, "%f", &m->caixa);
         fscanf(fp, "%d", &m->capacidade);
         fscanf(fp, "%d", &m->total);
@@ -71,7 +92,11 @@ void inicializar_mercadinho(Mercadinho *m) {
     }
 }
 
-/* Registra uma venda lendo codigos ate encontrar -1. */
+/*
+ * faz uma venda lendo codigos ate chegar no -1
+ * recebe Mercadinho * porque precisa olhar os produtos, diminuir o estoque e mudar o caixa
+ * e void porque o resultado aparece na tela e as mudancas ficam na propria struct
+ */
 void realiza_venda(Mercadinho *m) {
     int codigo;
     float soma = 0;
@@ -91,7 +116,11 @@ void realiza_venda(Mercadinho *m) {
     imprime_separador();
 }
 
-/* Insere um produto novo e aumenta a capacidade quando o vetor fica cheio. */
+/*
+ * coloca um produto novo no final do vetor
+ * recebe o mercadinho para alterar o estoque, o nome para copiar, a quantidade inicial e o preco
+ * nao retorna nada porque o produto fica guardado direto no vetor da struct
+ */
 void insere_produto(Mercadinho *m, char nome[], int qtd, float preco) {
     if (m->total == m->capacidade) {
         m->capacidade *= 2;
@@ -104,18 +133,31 @@ void insere_produto(Mercadinho *m, char nome[], int qtd, float preco) {
     m->total++;
 }
 
-/* Compra novas unidades do produto e desconta o custo do caixa. */
+/*
+ * aumenta o estoque de um produto que ja existe
+ * recebe o codigo para achar o produto e a qtd para saber quanto somar
+ * usa Mercadinho * porque tambem precisa descontar esse custo do caixa
+ * e void pois altera os campos da struct diretamente
+ */
 void aumenta_estoque(Mercadinho *m, int codigo, int qtd) {
     m->produtos[codigo].quantidade += qtd;
     m->caixa -= qtd * m->produtos[codigo].preco;
 }
 
-/* Atualiza o preco usado nas proximas vendas e compras de estoque. */
+/*
+ * troca o preco de um produto
+ * recebe o codigo para achar qual produto mudar e o novo preco para salvar
+ * retorna void porque so atualiza um campo dentro do vetor
+ */
 void modifica_preco(Mercadinho *m, int codigo, float preco) {
     m->produtos[codigo].preco = preco;
 }
 
-/* Lista codigo, nome e quantidade dos produtos cadastrados. */
+/*
+ * mostra todos os produtos cadastrados
+ * recebe Mercadinho * para acessar o total e o vetor de produtos
+ * nao retorna nada porque a consulta e impressa direto na saida
+ */
 void consulta_estoque(Mercadinho *m) {
     int i;
 
@@ -126,13 +168,21 @@ void consulta_estoque(Mercadinho *m) {
     imprime_separador();
 }
 
-/* Mostra o valor atual disponivel no caixa. */
+/*
+ * mostra o saldo atual do caixa
+ * recebe Mercadinho * porque o caixa fica guardado dentro dele
+ * e void porque apenas imprime o valor
+ */
 void consulta_saldo(Mercadinho *m) {
     printf("Saldo: %.2f\n", m->caixa);
     imprime_separador();
 }
 
-/* Salva o estado atual para o proximo dia e libera a memoria alocada. */
+/*
+ * fecha o programa salvando o estado em estoque.txt
+ * recebe Mercadinho * para pegar caixa, produtos e quantidade total, e tambem liberar a memoria
+ * retorna void porque a funcao so grava o arquivo e limpa o que foi alocado
+ */
 void finalizar_dia(Mercadinho *m) {
     FILE *fp = fopen("estoque.txt", "w");
     int i;
@@ -143,7 +193,7 @@ void finalizar_dia(Mercadinho *m) {
         exit(1);
     }
 
-    /* Formato do arquivo: caixa, capacidade, total e a lista de produtos. */
+    /* o arquivo guarda caixa, capacidade, total e depois os produtos */
     fprintf(fp, "%.2f\n", m->caixa);
     fprintf(fp, "%d\n", m->capacidade);
     fprintf(fp, "%d\n", m->total);
